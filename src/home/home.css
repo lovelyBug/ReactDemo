@@ -1,0 +1,29 @@
+.App {
+    height: 100%;
+    }
+  .login-row {
+    text-align: center;
+    /* margin-top: 2%; */
+    background-color: cornflowerblue;
+    height: 50px;
+    margin: 5px;
+  }
+  .login-col {
+    font-size: 16px;
+  }
+  .logo {
+    width: 240px;
+    height: 31px;
+    float: left;
+    text-align: center;
+    color: azure;
+  }
+  .user-info {
+    width: 120px;
+    height: 31px;
+    /* background: rgba(255,255,255,.2);  
+    margin: 16px 28px 16px 0; */
+    float: right;
+    text-align: center;
+    color: azure;
+  }

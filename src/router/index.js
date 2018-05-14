@@ -7,8 +7,8 @@ class RouterConfig extends Component {
     return(
       <HashRouter>
           <Switch>
-              <Route exact path="/" component={Login} />
-              <Route path="/home" component={Home} />
+              <Route exact path="/" component={Home} />
+              <Route path="/home" component={Login} />
           </Switch>
       </HashRouter>
     )
