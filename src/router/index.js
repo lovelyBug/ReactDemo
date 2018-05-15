@@ -6,10 +6,10 @@ class RouterConfig extends Component {
   render() {
     return(
       <HashRouter>
-          <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/home" component={Login} />
-          </Switch>
+        <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+        </Switch>
       </HashRouter>
     )
   }

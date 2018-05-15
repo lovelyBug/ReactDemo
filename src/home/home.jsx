@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb, Icon,Input,Avatar,Affix,Dropdown } from 'antd';
 import './home.css';
 import Login from '../login/login';
+import { NavLink } from 'react-router-dom';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
-//import { NavLink } from 'react-router-dom';
 
 class Home extends Component {
+  //用户信息
   user_info = (
     <Menu>
       <Menu.Item>
@@ -38,9 +39,10 @@ class Home extends Component {
               defaultSelectedKeys={['1']}
               style={{ lineHeight: '64px',float: 'left'}}
             >
-              <Menu.Item key="1">导航栏 1</Menu.Item>
-              <Menu.Item key="2">导航栏 2</Menu.Item>
-              <Menu.Item key="3">导航栏 3</Menu.Item>
+              <Menu.Item key="1">教师管理</Menu.Item>
+              <Menu.Item key="2">学生管理</Menu.Item>
+              <Menu.Item key="3">上传试卷</Menu.Item>
+              <Menu.Item key="4">下载试卷</Menu.Item>
             </Menu>
             <div className="search-input" >
               <Search
