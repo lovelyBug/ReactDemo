@@ -1,31 +1,55 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon,Input,Avatar,Affix,Dropdown } from 'antd';
 import './home.css';
 import Login from '../login/login';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+const Search = Input.Search;
 //import { NavLink } from 'react-router-dom';
 
 class Home extends Component {
+  user_info = (
+    <Menu>
+      <Menu.Item>
+        个人信息
+      </Menu.Item>
+      <Menu.Item>
+        修改密码
+      </Menu.Item>
+      <Menu.Item>
+        登出
+      </Menu.Item>
+    </Menu>
+  );
   render() {
     return (
       <Layout>
-        <Header className="header">
-          <div className="logo" >Logo</div>
-          <div className="logo" >搜索框</div>
-          <div className="user-info" >用户信息</div>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={['1']}
-            style={{ lineHeight: '64px',float: 'right',marginRight: '100px'}}
-          >
-            <Menu.Item key="1">导航栏 1</Menu.Item>
-            <Menu.Item key="2">导航栏 2</Menu.Item>
-            <Menu.Item key="3">导航栏 3</Menu.Item>
-          </Menu>
-          
-        </Header>
+        <Affix>
+          <Header className="header">
+            <div className="logo-text" >Computer Examination</div>
+            <div className="user-info" >
+              <Dropdown overlay={this.user_info} placement="bottomCenter">
+                <Avatar style={{ backgroundColor: '#1DA57A' }} icon="user" />
+              </Dropdown>
+            </div>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['1']}
+              style={{ lineHeight: '64px',float: 'left'}}
+            >
+              <Menu.Item key="1">导航栏 1</Menu.Item>
+              <Menu.Item key="2">导航栏 2</Menu.Item>
+              <Menu.Item key="3">导航栏 3</Menu.Item>
+            </Menu>
+            <div className="search-input" >
+              <Search
+                placeholder="输入搜索信息..."
+                onSearch={value => console.log(value)}
+                enterButton/>
+            </div>
+          </Header>
+        </Affix>
         <Content style={{ padding: '0' }}>
           <Layout style={{ padding: '24px 0', background: '#fff' }}>
             <Sider width={150} style={{ background: '#fff' }}>
@@ -55,8 +79,8 @@ class Home extends Component {
                 </SubMenu>
               </Menu>
             </Sider>
-            <Content style={{ padding: '0', minHeight: 450 }}>
-              <Login/>
+            <Content style={{ padding: '0', minHeight: 800 }}>
+              {/* <Login/> */}
             </Content>
           </Layout>
         </Content>
