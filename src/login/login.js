@@ -1,43 +1,87 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Redirect } from 'react-router-dom';
 import './login.css';
+import MyCookies from '../cookie/MyCookies';
+const FormItem = Form.Item;
 class Login extends Component {
-  
-  state={
-    count: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+       username: '',
+       password: '',
+       redirect: false,
+      };
   }
-  handleClick(clickType){
-    switch(clickType){
-      case 'add':
-        this.setState({count: this.state.count + 1});
+  handleSubmit = (e) => {
+    const { userName,password } = this.state;
+    if(userName === "root" && password === "root"){
+      MyCookies.setCookie("name",userName,1,"/");
+      this.setState({ redirect: true });
+    }
+  }
+  handleInput = (e) => {
+    let inputValue = e.target.value;
+    switch(e.target.type){
+      case 'text':
+        this.setState({ userName: inputValue });
         break;
-      case 'del':
-        this.setState({count: this.state.count - 1});
+      case 'password':
+        this.setState({ password: inputValue });
         break;
       default:
         break;
     }
+    
+  }
+  emitEmpty = () => {
+    this.userNameInput.focus();
+    this.setState({ userName: '' });
   }
   render() {
+    if(this.state.redirect){
+      return(
+        <Redirect push to="/" />
+      )
+    }
+    const { userName,password } = this.state;
+    const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
     return (
-      <div className="App">
-        {/* <NavLink to="/home" exact>
-          <Button type="primary">
-            Login!
-          </Button>
-        </NavLink> */}
-        <Button type="primary" onClick={()=>{this.handleClick('add')}}>
-            +1
-        </Button>
-        <Button>{this.state.count}</Button>
-        <Button type="primary" onClick={()=>{this.handleClick('del')}}>
-            -1
-        </Button>
+      <div className="container">
+        <h1 className="login-title">Computer Examination</h1>
+        <Form onSubmit={this.handleSubmit} className="login-form">
+          <FormItem>
+            <Input
+              value={userName}
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              suffix={suffix}
+              placeholder="管理员账号/职工号/学号"
+              onChange={this.handleInput}
+              ref={node => this.userNameInput = node}
+              size="large"
+            />
+          </FormItem>
+          <FormItem>
+            <Input
+              value={password}
+              prefix={<Icon type="lock"
+              style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              placeholder="密码"
+              onChange={this.handleInput}
+              size="large"
+            />
+          </FormItem>
+          <FormItem>
+            <Checkbox className="login-form-checkbox">记住我</Checkbox>
+            <a className="login-form-forgot" href="">忘记密码</a>
+            <Button type="primary" htmlType="submit" className="login-form-button">
+              登陆
+            </Button>
+          </FormItem>
+        </Form>
       </div>
     );
   }
-
 }
-
 export default Login;
