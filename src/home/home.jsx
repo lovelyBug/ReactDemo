@@ -6,7 +6,6 @@ import MyCookies from '../cookie/MyCookies';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -27,20 +26,15 @@ class Home extends Component {
       });
     }
   }
-  //用户信息
-  user_info = (
-    <Menu>
-      <Menu.Item>
-        个人信息
-      </Menu.Item>
-      <Menu.Item>
-        修改密码
-      </Menu.Item>
-      <Menu.Item>
-        登出
-      </Menu.Item>
-    </Menu>
-  );
+  /**
+   * 退出登录
+   */
+  userLogOut(){
+    MyCookies.setCookie("name",this.state.userName,-1,"/");
+    this.setState({
+      isToLogin: true,
+    });
+  }
   render() {
     if(this.state.isToLogin){
       return(
@@ -53,14 +47,27 @@ class Home extends Component {
           <Header className="header">
             <div className="logo-text" >Computer Examination</div>
             <div className="user-info" >
-              <Dropdown overlay={this.user_info} placement="bottomCenter">
+              <Dropdown
+               overlay={
+                <Menu>
+                  <Menu.Item key="1">
+                    {this.state.userName}
+                  </Menu.Item>
+                  <Menu.Item key="2">
+                    修改密码
+                  </Menu.Item>
+                  <Menu.Item key="3" onClick={()=>{this.userLogOut()}}>
+                    登出
+                  </Menu.Item>
+                </Menu>
+              }
+                placement="bottomCenter">
                 <Avatar style={{ backgroundColor: '#1DA57A' }} icon="user" />
               </Dropdown>
             </div>
             <Menu
               theme="dark"
               mode="horizontal"
-              defaultSelectedKeys={['1']}
               style={{ lineHeight: '64px',float: 'left'}}
             >
               <Menu.Item key="1">教师管理</Menu.Item>
@@ -81,7 +88,6 @@ class Home extends Component {
             <Sider width={150} style={{ background: '#fff' }}>
               <Menu
                 mode="inline"
-                defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 style={{ height: '100%' }}
               >
@@ -106,7 +112,7 @@ class Home extends Component {
               </Menu>
             </Sider>
             <Content style={{ padding: '0', minHeight: 800 }}>
-            
+              
             </Content>
           </Layout>
         </Content>
@@ -116,7 +122,5 @@ class Home extends Component {
       </Layout>
     );
   }
-
 }
-
 export default Home;
