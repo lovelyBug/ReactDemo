@@ -14,11 +14,14 @@ class Home extends Component {
        userName: '',
       };
   }
+  /**
+   * 生命周期函数，初始加载页面时执行的方法，依据session和cookie进行用户信息的判断，是否重定向至登录界面
+   */
   componentWillMount(){
-    if(MyCookies.getCookie('name').length !== 0){
+    if(sessionStorage.getItem("name") !== null || MyCookies.getCookie('name').length !== 0){
       this.setState({
         isToLogin: false,
-        userName: MyCookies.getCookie('name')
+        userName: sessionStorage.getItem("name")
       });
     }else{
       this.setState({
@@ -30,16 +33,70 @@ class Home extends Component {
    * 退出登录
    */
   userLogOut(){
-    MyCookies.setCookie("name",this.state.userName,-1,"/");
+    sessionStorage.removeItem("name");
     this.setState({
       isToLogin: true,
     });
+  }
+  managerNavigation(){
+    return(
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px',float: 'left'}}
+      >
+        <Menu.Item key="1">配置管理</Menu.Item>
+        <Menu.Item key="2">教师管理</Menu.Item>
+        <Menu.Item key="3">考试管理</Menu.Item>
+      </Menu>
+    );
+  }
+  teacherNavigation(){
+    return(
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px',float: 'left'}}
+      >
+        <Menu.Item key="1">考前管理</Menu.Item>
+        <Menu.Item key="2">考中管理</Menu.Item>
+        <Menu.Item key="3">考后管理</Menu.Item>
+      </Menu>
+    );
+  }
+  studentNavigation(){
+    return(
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px',float: 'left'}}
+      >
+        <Menu.Item key="1">试卷下载</Menu.Item>
+        <Menu.Item key="2">答案上传</Menu.Item>
+        <Menu.Item key="2">查看文件</Menu.Item>
+      </Menu>
+    );
+  }
+  selectNavigation(){
+    if(this.state.userName[0] === 'r'){
+      return(
+        this.managerNavigation()
+      );
+    }else if(this.state.userName[0] === 't'){
+      return(
+        this.teacherNavigation()
+      );
+    }else{
+      return(
+        this.studentNavigation()
+      );
+    }
   }
   render() {
     if(this.state.isToLogin){
       return(
         <Redirect push to="/login" />
-      )
+      );
     }
     return (
       <Layout>
@@ -65,20 +122,11 @@ class Home extends Component {
                 <Avatar style={{ backgroundColor: '#1DA57A' }} icon="user" />
               </Dropdown>
             </div>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              style={{ lineHeight: '64px',float: 'left'}}
-            >
-              <Menu.Item key="1">教师管理</Menu.Item>
-              <Menu.Item key="2">学生管理</Menu.Item>
-              <Menu.Item key="3">上传试卷</Menu.Item>
-              <Menu.Item key="4">下载试卷</Menu.Item>
-            </Menu>
+            {this.selectNavigation()}
             <div className="search-input" >
               <Search
                 placeholder="输入搜索信息..."
-                onSearch={value => console.log(value)}
+                onSearch={value => alert(value)}
                 enterButton/>
             </div>
           </Header>
