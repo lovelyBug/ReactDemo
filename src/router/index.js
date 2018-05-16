@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {HashRouter,Switch,Route,Redirect} from 'react-router-dom';
+import {HashRouter,Switch,Route} from 'react-router-dom';
 import Login from '../login/login';
 import Home from '../home/home';
 class RouterConfig extends Component {

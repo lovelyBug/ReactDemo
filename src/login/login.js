@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { NavLink,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './login.css';
+import MyCookies from '../cookie/MyCookies';
 const FormItem = Form.Item;
 class Login extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class Login extends Component {
   }
   handleSubmit = (e) => {
     const { userName,password } = this.state;
-    if(userName === 'root' && password === 'root'){
+    if(userName === "root" && password === "root"){
+      MyCookies.setCookie("name",userName,1,"/");
       this.setState({ redirect: true });
     }
   }

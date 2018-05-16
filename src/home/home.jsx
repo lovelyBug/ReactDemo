@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon,Input,Avatar,Affix,Dropdown } from 'antd';
+import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown } from 'antd';
 import './home.css';
-import Login from '../login/login';
-import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import MyCookies from '../cookie/MyCookies';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+       isToLogin: false,
+       userName: '',
+      };
+  }
+  componentWillMount(){
+    if(MyCookies.getCookie('name').length !== 0){
+      this.setState({
+        isToLogin: false,
+        userName: MyCookies.getCookie('name')
+      });
+    }else{
+      this.setState({
+        isToLogin: true,
+      });
+    }
+  }
   //用户信息
   user_info = (
     <Menu>
@@ -23,6 +42,11 @@ class Home extends Component {
     </Menu>
   );
   render() {
+    if(this.state.isToLogin){
+      return(
+        <Redirect push to="/login" />
+      )
+    }
     return (
       <Layout>
         <Affix>
@@ -82,7 +106,7 @@ class Home extends Component {
               </Menu>
             </Sider>
             <Content style={{ padding: '0', minHeight: 800 }}>
-              {/* <Login/> */}
+            
             </Content>
           </Layout>
         </Content>
