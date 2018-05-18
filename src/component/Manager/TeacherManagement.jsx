@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'antd';
 import AddNewTeacher from './AddNewTeacher';
+//教师列表列名标题
 const columns = [{
   title: '姓名',
   dataIndex: 'name',
@@ -19,7 +20,7 @@ const columns = [{
   render: ()=><a href="">删除</a>
 }
 ];
-
+//列表数据源
 const data = [];
 for (let i = 0; i < 46; i++) {
   data.push({
@@ -28,7 +29,6 @@ for (let i = 0; i < 46; i++) {
     age: 32,
     gender: i % 2 ? '男' : '女',
     email: '******@163.com',
-
   });
 }
 
@@ -36,12 +36,14 @@ export default class TeacherManagement extends Component {
   constructor(props){
     super(props);
     this.state = {
-        selectedRowKeys: [], // Check here to configure the default column
+        selectedRowKeys: [],
         loading: false,
         visible: false
     };
   }
-  
+  /**
+   * 点击删除按钮时触发的事件，显示loading视图1000ms，清空已选择项
+   */
   start = () => {
     this.setState({ loading: true });
     // ajax request after empty completing
@@ -52,16 +54,27 @@ export default class TeacherManagement extends Component {
       });
     }, 1000);
   }
+  /**
+   * 每次勾选/取消勾选复选框时触发的事件
+   */
   onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
   }
+  /**
+   * 点击添加教师按钮，显示添加教师视图
+   */
   showModal = () => {
     this.setState({ visible: true });
   }
+  /**
+   * 点击取消按钮，让Modal视图消失
+   */
   handleCancel = () => {
     this.setState({ visible: false });
   }
+  /**
+   * 添加新教师
+   */
   handleCreate = () => {
     const form = this.formRef.props.form;
     form.validateFields((err, values) => {

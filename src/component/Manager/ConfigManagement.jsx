@@ -6,6 +6,9 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
 export default class ConfigManagement extends Component {
+  /**
+   * 处理提交事件
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     // this.props.form.validateFields((err, values) => {
@@ -14,6 +17,9 @@ export default class ConfigManagement extends Component {
     //   }
     // });
   }
+  /**
+   * 处理性别改变事件
+   */
   handleSelectChange = (value) => {
     console.log(value);
     // this.props.form.setFieldsValue({
