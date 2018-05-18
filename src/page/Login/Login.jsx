@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import { Redirect } from 'react-router-dom';
-import './login.css';
-import MyCookies from '../cookie/MyCookies';
+import './Login.css';
+import MyCookies from '../../cookie/MyCookies';
 const FormItem = Form.Item;
 class Login extends Component {
   constructor(props) {
@@ -11,15 +11,49 @@ class Login extends Component {
        username: '',
        password: '',
        redirect: false,
+       checked: false,
       };
+      //提示信息属性配置
+      message.config({
+        top: 150,
+        duration: 1,
+        maxCount: 3
+      });
   }
+  /**
+   * 点击登陆时触发的事件
+   */
   handleSubmit = (e) => {
-    const { userName,password } = this.state;
-    if(userName === "root" && password === "root"){
-      MyCookies.setCookie("name",userName,1,"/");
+    const { userName,password,checked } = this.state;
+    if(userName === undefined){
+      message.warning('账号不能为空！');
+      return;
+    }
+    if(password === ''){
+      message.warning('密码不能为空！');
+      return;
+    }
+    //如果登陆成功
+    if(userName === "admin" || userName === "teacher" || userName === "student"){
+      if(checked){
+        //如果选择记住我登陆，将登录信息保存至cookie里，时长一天
+        MyCookies.setCookie("name",userName,1,"/");
+      }else{
+        //如果未选择记住我登陆，将之前保存在cookie里的用户信息清除
+        MyCookies.setCookie("name",userName,-1,"/");
+      }
+      //将此次登录信息保存至sessionStorage，关闭页面或者登出后自动清除sessionStorage里的用户信息
+      sessionStorage.setItem("name",userName);
+      message.success('登陆成功！');
+      //登陆成功后重定向至主页面
       this.setState({ redirect: true });
+    }else{
+      message.error('账号或密码错误！');
     }
   }
+  /**
+   * 输入信息时触发的事件
+   */
   handleInput = (e) => {
     let inputValue = e.target.value;
     switch(e.target.type){
@@ -34,9 +68,20 @@ class Login extends Component {
     }
     
   }
+  /**
+   * 清空输入框里的输入信息
+   */
   emitEmpty = () => {
     this.userNameInput.focus();
     this.setState({ userName: '' });
+  }
+  /**
+   * 复选框选中与否
+   */
+  onCheckBoxChange = (e) => {
+    this.setState({
+      checked: e.target.checked
+    });
   }
   render() {
     if(this.state.redirect){
@@ -73,7 +118,13 @@ class Login extends Component {
             />
           </FormItem>
           <FormItem>
-            <Checkbox className="login-form-checkbox">记住我</Checkbox>
+            <Checkbox
+              className="login-form-checkbox"
+              checked={this.state.checked}
+              onChange={this.onCheckBoxChange}
+              >
+              记住我
+            </Checkbox>
             <a className="login-form-forgot" href="">忘记密码</a>
             <Button type="primary" htmlType="submit" className="login-form-button">
               登陆
