@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import { Redirect } from 'react-router-dom';
-import './login.css';
-import MyCookies from '../cookie/MyCookies';
+import './Login.css';
+import MyCookies from '../../cookie/MyCookies';
 const FormItem = Form.Item;
 class Login extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Login extends Component {
       return;
     }
     //如果登陆成功
-    if(userName === "root" || userName === "teacher" || userName === "student"){
+    if(userName === "admin" || userName === "teacher" || userName === "student"){
       if(checked){
         //如果选择记住我登陆，将登录信息保存至cookie里，时长一天
         MyCookies.setCookie("name",userName,1,"/");
