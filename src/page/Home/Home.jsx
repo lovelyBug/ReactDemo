@@ -23,7 +23,7 @@ class Home extends Component {
     if(sessionStorage.getItem("name") !== null || MyCookies.getCookie('name').length !== 0){
       this.setState({
         isToLogin: false,
-        userName: MyCookies.getCookie('name')
+        userName: MyCookies.getCookie('name') || sessionStorage.getItem("name")
       });
     }else{
       this.setState({
