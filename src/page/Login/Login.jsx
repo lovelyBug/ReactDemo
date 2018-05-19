@@ -15,7 +15,7 @@ class Login extends Component {
       };
       //提示信息属性配置
       message.config({
-        top: 150,
+        top: 100,
         duration: 1,
         maxCount: 3
       });
@@ -65,8 +65,7 @@ class Login extends Component {
         break;
       default:
         break;
-    }
-    
+    } 
   }
   /**
    * 清空输入框里的输入信息
@@ -84,12 +83,23 @@ class Login extends Component {
     });
   }
   render() {
-    if(this.state.redirect){
-      return(
-        <Redirect push to="/home" />
-      )
+    const { userName,password,redirect } = this.state;
+    if(redirect){
+      switch(userName){
+        case 'admin':
+        return(
+          <Redirect push to="/home/aem" />
+        );
+        case 'teacher':
+        return(
+          <Redirect push to="/home/tsm" />
+        );
+        case 'student':
+        return(
+          <Redirect push to="/home/aem" />
+        );
+      }
     }
-    const { userName,password } = this.state;
     const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
     return (
       <div className="container">
