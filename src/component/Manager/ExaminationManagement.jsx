@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Badge, Menu, Dropdown, Icon,Progress } from 'antd';
+import { Table, Icon, Progress } from 'antd';
 
 const expandedRowRender = () => {
     //内层学生信息标题
@@ -13,7 +13,7 @@ const expandedRowRender = () => {
         dataIndex: 'operation',
         key: 'operation',
         render: () => (
-          <a href="#"><Icon type="exclamation-circle" /> 提醒提交</a>
+          <a href=""><Icon type="exclamation-circle" /> 删除考生</a>
         ),
       },
     ];
@@ -24,7 +24,7 @@ const expandedRowRender = () => {
         key: i,
         Snumber: '1510243569',
         name: '常凌飞',
-        date: '2014-12-24 23:12:00',
+        date: i % 2 ? '2014-12-24 23:12:00' : '',
         commitStatus: i % 2 ? '已提交' : '未提交',
       });
     }

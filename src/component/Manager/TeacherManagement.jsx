@@ -3,6 +3,9 @@ import { Table, Button,Icon } from 'antd';
 import AddNewTeacher from './AddNewTeacher';
 //教师列表列名标题
 const columns = [{
+  title: '工号',
+  dataIndex: 'Tnumber',
+},{
   title: '姓名',
   dataIndex: 'name',
 }, {
@@ -25,6 +28,7 @@ const data = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
+    Tnumber: '235687',
     name: '凌飞  ' + i,
     age: 32,
     gender: i % 2 ? '男' : '女',

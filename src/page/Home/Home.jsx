@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown } from 'antd';
+import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown,message } from 'antd';
 import './Home.css';
 import { Redirect,NavLink,Switch,Route } from 'react-router-dom';
 import MyCookies from '../../cookie/MyCookies';
 import ConfigManagement from '../../component/Manager/ConfigManagement';
 import TeacherManagement from '../../component/Manager/TeacherManagement';
 import ExaminationManagement from '../../component/Manager/ExaminationManagement';
+import PreExamManagement from '../../component/Teacher/PreExamManagement';
+import ExamManagement from '../../component/Teacher/ExamManagement';
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
@@ -16,6 +19,11 @@ class Home extends Component {
        isToLogin: false,
        userName: '',
       };
+    message.config({
+      top: 100,
+      duration: 1,
+      maxCount: 3
+    });
   }
   /**
    * 生命周期函数，初始加载页面时执行的方法，依据session和cookie进行用户信息的判断，是否重定向至登录界面
@@ -48,9 +56,9 @@ class Home extends Component {
         mode="horizontal"
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1"><NavLink to='/home/cm'>配置管理</NavLink></Menu.Item>
+        <Menu.Item key="1"><NavLink to='/home/em'>考试管理</NavLink></Menu.Item>
         <Menu.Item key="2"><NavLink to='/home/tm'>教师管理</NavLink></Menu.Item>
-        <Menu.Item key="3"><NavLink to='/home/em'>考试管理</NavLink></Menu.Item>
+        <Menu.Item key="3"><NavLink to='/home/cm'>配置管理</NavLink></Menu.Item>
       </Menu>
     );
   }
@@ -61,8 +69,8 @@ class Home extends Component {
         mode="horizontal"
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1">考前管理</Menu.Item>
-        <Menu.Item key="2">考中管理</Menu.Item>
+        <Menu.Item key="1"><NavLink to='/home/tsm'>考前管理</NavLink></Menu.Item>
+        <Menu.Item key="2"><NavLink to='/home/tem'>考中管理</NavLink></Menu.Item>
         <Menu.Item key="3">考后管理</Menu.Item>
       </Menu>
     );
@@ -179,10 +187,12 @@ class Home extends Component {
             {this.siderView()}
             <Content style={{ padding: '0', minHeight: 800 }}>
               <Switch>
-                <Route exact  path='/home/tm' component={TeacherManagement} />
-                <Route path='/home/cm' component={ConfigManagement} />
-                <Route path='/home/em' component={ExaminationManagement} />
-                <Route component={TeacherManagement} />
+                <Route exact  path='/home/atm' component={TeacherManagement} />
+                <Route path='/home/acm' component={ConfigManagement} />
+                <Route path='/home/aem' component={ExaminationManagement} />
+                <Route path='/home/tsm' component={ConfigManagement} />
+                <Route path='/home/tem' component={ExamManagement} />
+                <Route component={ConfigManagement} />
             </Switch>
             </Content>
           </Layout>
