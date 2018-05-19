@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown } from 'antd';
 import './Home.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect,NavLink,Switch,Route } from 'react-router-dom';
 import MyCookies from '../../cookie/MyCookies';
 import ConfigManagement from '../../component/Manager/ConfigManagement';
 import TeacherManagement from '../../component/Manager/TeacherManagement';
+import ExaminationManagement from '../../component/Manager/ExaminationManagement';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
@@ -47,9 +48,9 @@ class Home extends Component {
         mode="horizontal"
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1">配置管理</Menu.Item>
-        <Menu.Item key="2">教师管理</Menu.Item>
-        <Menu.Item key="3">考试管理</Menu.Item>
+        <Menu.Item key="1"><NavLink to='/home/cm'>配置管理</NavLink></Menu.Item>
+        <Menu.Item key="2"><NavLink to='/home/tm'>教师管理</NavLink></Menu.Item>
+        <Menu.Item key="3"><NavLink to='/home/em'>考试管理</NavLink></Menu.Item>
       </Menu>
     );
   }
@@ -177,8 +178,12 @@ class Home extends Component {
           <Layout style={{ padding: '24px 0', background: '#fff' }}>
             {this.siderView()}
             <Content style={{ padding: '0', minHeight: 800 }}>
-              <TeacherManagement/>
-              {/* <ConfigManagement/> */}
+              <Switch>
+                <Route exact  path='/home/tm' component={TeacherManagement} />
+                <Route path='/home/cm' component={ConfigManagement} />
+                <Route path='/home/em' component={ExaminationManagement} />
+                <Route component={TeacherManagement} />
+            </Switch>
             </Content>
           </Layout>
         </Content>
