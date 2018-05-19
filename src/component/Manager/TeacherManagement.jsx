@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button,Icon } from 'antd';
 import AddNewTeacher from './AddNewTeacher';
 //教师列表列名标题
 const columns = [{
@@ -17,7 +17,7 @@ const columns = [{
 },{
   title: '操作',
   dataIndex: 'action',
-  render: ()=><a href="">删除</a>
+  render: ()=><a href=""><Icon type="minus-circle" /> 删除</a>
 }
 ];
 //列表数据源
@@ -110,7 +110,6 @@ export default class TeacherManagement extends Component {
             style={{float: 'right'}}
             type="primary"
             onClick={this.showModal}
-            loading={loading}
           >
             添加老师
           </Button>

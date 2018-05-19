@@ -86,7 +86,7 @@ class Login extends Component {
   render() {
     if(this.state.redirect){
       return(
-        <Redirect push to="/" />
+        <Redirect push to="/home" />
       )
     }
     const { userName,password } = this.state;
