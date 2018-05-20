@@ -34,7 +34,7 @@ class Login extends Component {
       return;
     }
     //如果登陆成功
-    if(userName === "admin" || userName === "teacher" || userName === "student"){
+    if(userName === "admin" || userName === "teacher"){
       if(checked){
         //如果选择记住我登陆，将登录信息保存至cookie里，时长一天
         MyCookies.setCookie("name",userName,1,"/");
@@ -94,10 +94,8 @@ class Login extends Component {
         return(
           <Redirect push to="/home/tsm" />
         );
-        case 'student':
-        return(
-          <Redirect push to="/home/aem" />
-        );
+        default:
+        return;
       }
     }
     const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;

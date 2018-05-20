@@ -45,6 +45,7 @@ class Home extends Component {
    * 退出登录
    */
   userLogOut(){
+    message.success('登出成功！');
     sessionStorage.removeItem("name");
     this.setState({
       isToLogin: true,
@@ -55,6 +56,7 @@ class Home extends Component {
       <Menu
         theme="dark"
         mode="horizontal"
+        defaultSelectedKeys={['1']}
         style={{ lineHeight: '64px',float: 'left'}}
       >
         <Menu.Item key="1"><NavLink to='/home/aem'>考试管理</NavLink></Menu.Item>
@@ -68,24 +70,12 @@ class Home extends Component {
       <Menu
         theme="dark"
         mode="horizontal"
+        defaultSelectedKeys={['1']}
         style={{ lineHeight: '64px',float: 'left'}}
       >
         <Menu.Item key="1"><NavLink to='/home/tprem'>考前管理</NavLink></Menu.Item>
         <Menu.Item key="2"><NavLink to='/home/tem'>考中管理</NavLink></Menu.Item>
         <Menu.Item key="3"><NavLink to='/home/tpostm'>考后管理</NavLink></Menu.Item>
-      </Menu>
-    );
-  }
-  studentNavigation(){
-    return(
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        style={{ lineHeight: '64px',float: 'left'}}
-      >
-        <Menu.Item key="1">试卷下载</Menu.Item>
-        <Menu.Item key="2">答案上传</Menu.Item>
-        <Menu.Item key="3">查看文件</Menu.Item>
       </Menu>
     );
   }
@@ -97,10 +87,6 @@ class Home extends Component {
     }else if(this.state.userName[0] === 't'){
       return(
         this.teacherNavigation()
-      );
-    }else{
-      return(
-        this.studentNavigation()
       );
     }
   }
@@ -142,10 +128,7 @@ class Home extends Component {
           <Menu.Item key="1">
             {this.state.userName}
           </Menu.Item>
-          <Menu.Item key="2">
-            修改密码
-          </Menu.Item>
-          <Menu.Item key="3" onClick={()=>{this.userLogOut()}}>
+          <Menu.Item key="2" onClick={()=>{this.userLogOut()}}>
             登出
           </Menu.Item>
         </Menu>
@@ -159,7 +142,7 @@ class Home extends Component {
     return(
       <Search
         placeholder="输入搜索信息..."
-        onSearch={value => alert(value)}
+        onSearch={value => message.success(value)}
         enterButton/>
     )
   }
