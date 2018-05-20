@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import { Redirect } from 'react-router-dom';
 import './ForgotPassword.css';
+const FormItem = Form.Item;
 class ForgotPassword extends Component {
     constructor(props) {
       super(props);
@@ -28,7 +29,7 @@ class ForgotPassword extends Component {
         const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
         return (
           <div className="container">
-            <h1 className="login-title">Computer Examination</h1>
+            <h1 className="login-title">修改密码</h1>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
                 <Input
