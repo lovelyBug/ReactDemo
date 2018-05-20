@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input, Radio } from 'antd';
 const FormItem = Form.Item;
 
 const AddNewTeacher = Form.create()(
-  class extends Component {
+  class extends React.Component {
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;

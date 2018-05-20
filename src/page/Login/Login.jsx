@@ -15,7 +15,7 @@ class Login extends Component {
       };
       //提示信息属性配置
       message.config({
-        top: 100,
+        top: 150,
         duration: 1,
         maxCount: 3
       });
@@ -34,7 +34,7 @@ class Login extends Component {
       return;
     }
     //如果登陆成功
-    if(userName === "admin" || userName === "teacher"){
+    if(userName === "admin" || userName === "teacher" || userName === "student"){
       if(checked){
         //如果选择记住我登陆，将登录信息保存至cookie里，时长一天
         MyCookies.setCookie("name",userName,1,"/");
@@ -65,7 +65,8 @@ class Login extends Component {
         break;
       default:
         break;
-    } 
+    }
+    
   }
   /**
    * 清空输入框里的输入信息
@@ -83,21 +84,12 @@ class Login extends Component {
     });
   }
   render() {
-    const { userName,password,redirect } = this.state;
-    if(redirect){
-      switch(userName){
-        case 'admin':
-        return(
-          <Redirect push to="/home/aem" />
-        );
-        case 'teacher':
-        return(
-          <Redirect push to="/home/tsm" />
-        );
-        default:
-        return;
-      }
+    if(this.state.redirect){
+      return(
+        <Redirect push to="/" />
+      )
     }
+    const { userName,password } = this.state;
     const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
     return (
       <div className="container">

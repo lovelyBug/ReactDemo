@@ -8,7 +8,7 @@ class ForgotPassword extends Component {
       super(props);
       this.state = {
          username: '',
-         email: '',
+         password: '',
          redirect: false,
          checked: false,
         };
@@ -25,11 +25,11 @@ class ForgotPassword extends Component {
             <Redirect push to="/" />
           )
         }
-        const { userName,email } = this.state;
+        const { userName,password } = this.state;
         const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
         return (
           <div className="container">
-            <h1 className="login-title">重置密码</h1>
+            <h1 className="login-title">修改密码</h1>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
                 <Input
@@ -44,28 +44,24 @@ class ForgotPassword extends Component {
               </FormItem>
               <FormItem>
                 <Input
-                  value={email}
+                  value={password}
                   prefix={<Icon type="lock"
                   style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  type="email"
-                  placeholder="邮箱"
+                  type="password"
+                  placeholder="密码"
                   onChange={this.handleInput}
                   size="large"
                 />
               </FormItem>
               <FormItem>
-                <Input
-                  value={email}
-                  prefix={<Icon type="lock"
-                  style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  type="email"
-                  placeholder="邮箱"
-                  onChange={this.handleInput}
-                  size="large"
-                />
-              </FormItem>
-              <FormItem>
-     
+                <Checkbox
+                  className="login-form-checkbox"
+                  checked={this.state.checked}
+                  onChange={this.onCheckBoxChange}
+                  >
+                  记住我
+                </Checkbox>
+                <a className="login-form-forgot" href="">忘记密码</a>
                 <Button type="primary" htmlType="submit" className="login-form-button">
                   登陆
                 </Button>

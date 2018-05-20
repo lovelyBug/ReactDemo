@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown,message } from 'antd';
+import { Layout,Menu,Icon,Input,Avatar,Affix,Dropdown } from 'antd';
 import './Home.css';
-import { Redirect,NavLink,Switch,Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import MyCookies from '../../cookie/MyCookies';
 import ConfigManagement from '../../component/Manager/ConfigManagement';
 import TeacherManagement from '../../component/Manager/TeacherManagement';
-import ExaminationManagement from '../../component/Manager/ExaminationManagement';
-import PreExamManagement from '../../component/Teacher/PreExamManagement';
-import ExamManagement from '../../component/Teacher/ExamManagement';
-import PostExamManagement from '../../component/Teacher/PostExamManagement';
-
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Search = Input.Search;
@@ -20,11 +15,6 @@ class Home extends Component {
        isToLogin: false,
        userName: '',
       };
-    message.config({
-      top: 100,
-      duration: 1,
-      maxCount: 3
-    });
   }
   /**
    * 生命周期函数，初始加载页面时执行的方法，依据session和cookie进行用户信息的判断，是否重定向至登录界面
@@ -45,7 +35,6 @@ class Home extends Component {
    * 退出登录
    */
   userLogOut(){
-    message.success('登出成功！');
     sessionStorage.removeItem("name");
     this.setState({
       isToLogin: true,
@@ -56,12 +45,11 @@ class Home extends Component {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['1']}
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1"><NavLink to='/home/aem'>考试管理</NavLink></Menu.Item>
-        <Menu.Item key="2"><NavLink to='/home/atm'>教师管理</NavLink></Menu.Item>
-        <Menu.Item key="3"><NavLink to='/home/acm'>配置管理</NavLink></Menu.Item>
+        <Menu.Item key="1">配置管理</Menu.Item>
+        <Menu.Item key="2">教师管理</Menu.Item>
+        <Menu.Item key="3">考试管理</Menu.Item>
       </Menu>
     );
   }
@@ -70,12 +58,24 @@ class Home extends Component {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['1']}
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1"><NavLink to='/home/tprem'>考前管理</NavLink></Menu.Item>
-        <Menu.Item key="2"><NavLink to='/home/tem'>考中管理</NavLink></Menu.Item>
-        <Menu.Item key="3"><NavLink to='/home/tpostm'>考后管理</NavLink></Menu.Item>
+        <Menu.Item key="1">考前管理</Menu.Item>
+        <Menu.Item key="2">考中管理</Menu.Item>
+        <Menu.Item key="3">考后管理</Menu.Item>
+      </Menu>
+    );
+  }
+  studentNavigation(){
+    return(
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px',float: 'left'}}
+      >
+        <Menu.Item key="1">试卷下载</Menu.Item>
+        <Menu.Item key="2">答案上传</Menu.Item>
+        <Menu.Item key="3">查看文件</Menu.Item>
       </Menu>
     );
   }
@@ -87,6 +87,10 @@ class Home extends Component {
     }else if(this.state.userName[0] === 't'){
       return(
         this.teacherNavigation()
+      );
+    }else{
+      return(
+        this.studentNavigation()
       );
     }
   }
@@ -128,7 +132,10 @@ class Home extends Component {
           <Menu.Item key="1">
             {this.state.userName}
           </Menu.Item>
-          <Menu.Item key="2" onClick={()=>{this.userLogOut()}}>
+          <Menu.Item key="2">
+            修改密码
+          </Menu.Item>
+          <Menu.Item key="3" onClick={()=>{this.userLogOut()}}>
             登出
           </Menu.Item>
         </Menu>
@@ -142,7 +149,7 @@ class Home extends Component {
     return(
       <Search
         placeholder="输入搜索信息..."
-        onSearch={value => message.success(value)}
+        onSearch={value => alert(value)}
         enterButton/>
     )
   }
@@ -170,15 +177,8 @@ class Home extends Component {
           <Layout style={{ padding: '24px 0', background: '#fff' }}>
             {this.siderView()}
             <Content style={{ padding: '0', minHeight: 800 }}>
-              <Switch>
-                <Route exact  path='/home/atm' component={TeacherManagement} />
-                <Route path='/home/acm' component={ConfigManagement} />
-                <Route path='/home/aem' component={ExaminationManagement} />
-                <Route path='/home/tprem' component={PreExamManagement} />
-                <Route path='/home/tem' component={ExamManagement} />
-                <Route path='/home/tpostm' component={PostExamManagement} />
-                <Route component={ConfigManagement} />
-            </Switch>
+              <TeacherManagement/>
+              {/* <ConfigManagement/> */}
             </Content>
           </Layout>
         </Content>

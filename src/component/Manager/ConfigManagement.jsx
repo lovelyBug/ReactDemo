@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Select, Input, Button,DatePicker,Upload,Icon,message } from 'antd';
+import { Form, Select, Input, Button,DatePicker,Checkbox } from 'antd';
 import './ConfigManagement.css';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
-const Dragger = Upload.Dragger;
 export default class ConfigManagement extends Component {
-  
   /**
    * 处理提交事件
    */
@@ -27,20 +25,6 @@ export default class ConfigManagement extends Component {
     // this.props.form.setFieldsValue({
     //   note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
     // });
-  }
-  beforeUpload(){
-    return true;
-  }
-  onChange(info) {
-    const status = info.file.status;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} 文件上传成功！`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} 文件上传失败！`);
-    }
   }
   render() {
     return (
@@ -73,22 +57,6 @@ export default class ConfigManagement extends Component {
           </Select>
         </FormItem>
         <FormItem
-          label="考生上传文件大小"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 12 }}
-        >
-          <Select
-            placeholder="请选择文件大小..."
-            onChange={this.handleSelectChange}
-          >
-            <Option value="500KB">500KB</Option>
-            <Option value="1MB">1MB</Option>
-            <Option value="2MB">2MB</Option>
-            <Option value="3MB">3MB</Option>
-            <Option value="5MB++">5MB</Option>
-          </Select>
-        </FormItem>
-        <FormItem
           label="考试时间"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
@@ -100,24 +68,15 @@ export default class ConfigManagement extends Component {
         <FormItem
           wrapperCol={{ span: 12, offset: 5 }}
         >
-          <Dragger 
-            name= 'file'
-            multiple = {true}
-            action = "//jsonplaceholder.typicode.com/posts/"
-            onChange ={this.onChange}
-            beforeUpload = {this.beforeUpload}
-          >
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-text">将文件拖拽到此或者点击上传，文件大小不超过10kb</p>
-          </Dragger>
-        </FormItem>
-        <FormItem
-          wrapperCol={{ span: 12, offset: 5 }}
-        >
+          <Checkbox
+            className="login-form-checkbox"
+            // checked={this.state.checked}
+            // onChange={this.onCheckBoxChange}
+            >
+            是否允许老师删除考试？
+          </Checkbox>
           <Button type="primary" htmlType="submit" className="login-form-button">
-            开启考试
+            新建考试
           </Button>
         </FormItem>
       </Form>

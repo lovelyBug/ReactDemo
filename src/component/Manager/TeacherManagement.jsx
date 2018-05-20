@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Table, Button,Icon } from 'antd';
+import { Table, Button } from 'antd';
 import AddNewTeacher from './AddNewTeacher';
 //教师列表列名标题
 const columns = [{
-  title: '工号',
-  dataIndex: 'Tnumber',
-},{
   title: '姓名',
   dataIndex: 'name',
 }, {
@@ -20,7 +17,7 @@ const columns = [{
 },{
   title: '操作',
   dataIndex: 'action',
-  render: ()=><a href=""><Icon type="minus-circle" /> 删除</a>
+  render: ()=><a href="">删除</a>
 }
 ];
 //列表数据源
@@ -28,7 +25,6 @@ const data = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    Tnumber: '235687',
     name: '凌飞  ' + i,
     age: 32,
     gender: i % 2 ? '男' : '女',
@@ -114,6 +110,7 @@ export default class TeacherManagement extends Component {
             style={{float: 'right'}}
             type="primary"
             onClick={this.showModal}
+            loading={loading}
           >
             添加老师
           </Button>
