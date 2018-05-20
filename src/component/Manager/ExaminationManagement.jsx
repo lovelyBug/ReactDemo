@@ -13,7 +13,7 @@ const expandedRowRender = () => {
         dataIndex: 'operation',
         key: 'operation',
         render: () => (
-          <a href=""><Icon type="exclamation-circle" /> 删除考生</a>
+          <a href=""><Icon type="user-delete" /> 删除考生</a>
         ),
       },
     ];

@@ -3,7 +3,7 @@ import { Table, Icon, Progress,Button,message } from 'antd';
 import AddStudent from './AddStudent';
 import SendMessage from './SendMessage';
 const data = [];
-export default class ExamManagement extends Component{
+export default class PostExamManagement extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -17,7 +17,7 @@ export default class ExamManagement extends Component{
             type: '期末考试',
             name: '数据结构',
             date: '2014-12-24',
-            status: '考试中',
+            status: '已结束',
             listener: '常凌飞',
             });
         }
@@ -37,7 +37,7 @@ export default class ExamManagement extends Component{
                 <Button
                     onClick={()=>{message.success('已提醒！');}}
                 >
-                    <Icon type="exclamation-circle" /> 提醒提交
+                    <Icon type="download" /> 下载试卷
                 </Button>
             ),
           },
@@ -68,85 +68,31 @@ export default class ExamManagement extends Component{
         { title: '考试日期', dataIndex: 'date', key: 'date' },
         { title: '状态', dataIndex: 'status', key: 'status' },
         { title: '监考老师', dataIndex: 'listener', key: 'listener' },
-        { title: '提交比例', key: 'commitRate',render:()=><Progress type="circle" percent={45} width={50} /> },
+        { title: '提交比例', key: 'commitRate',render:()=><Progress type="circle" percent={96} width={50} /> },
         { title: '发送通知', key: 'operation', render: () => (
             <Button
-                onClick={()=>{this.setState({sendMessageVisible: true})}}
+            onClick={()=>{message.success('下载试卷！');}}
             >
-                <Icon type="message" />
-                 发送通知
+                <Icon type="download" />
+                 下载试卷
             </Button>
             
         )},
         { title: '添加学生', key: 'operation1', render: () => (
             <Button
-                onClick={()=>{this.setState({addStudentVisible: true})}}
+            onClick={()=>{message.success('导出信息！');}}
             >
-                <Icon type="user-add" /> 添加学生
+                <Icon type="export" /> 导出信息
             </Button>
         )},
         { title: '结束考试', key: 'operation3', render: () => (
             <Button
-                onClick={()=>{message.success('已经结束考试！');}}
+                onClick={()=>{message.success('已经清理考试！');}}
             >
-                <Icon type="close-circle" /> 结束考试
+                <Icon type="close-circle" /> 清理考试
             </Button>
         )}
     ];
-  /**
-   * 点击添加教师按钮，显示添加教师视图
-   */
-  showModal = () => {
-    this.setState({ addStudentVisible: true });
-  }
-  /**
-   * 点击取消按钮，让Modal视图消失
-   */
-  handleCancel = () => {
-    this.setState({ addStudentVisible: false });
-  }
-  /**
-   * 添加新教师
-   */
-  handleCreate = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      form.resetFields();
-      this.setState({ addStudentVisible: false });
-      message.success('添加学生成功！');
-    });
-  }
-  /**
-   * 点击添加发送通知按钮，显示发送通知视图
-   */
-  showSendMessageModal = () => {
-    this.setState({ sendMessageVisible: true });
-  }
-  /**
-   * 点击取消按钮，让发送通知Modal视图消失
-   */
-  handleSendMessageCancel = () => {
-    this.setState({ sendMessageVisible: false });
-  }
-  /**
-   * 发送通知
-   */
-  handleSendMessage = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      form.resetFields();
-      this.setState({ sendMessageVisible: false });
-    });
-  }
-  saveFormRef = (formRef) => {
-    this.formRef = formRef;
-  }
     render(){
         return (
             <div>
@@ -155,17 +101,6 @@ export default class ExamManagement extends Component{
                     columns={this.columns}
                     expandedRowRender={this.expandedRowRender}
                     dataSource={data}
-                />
-                <AddStudent
-                    wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.addStudentVisible}
-                    onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
-                />
-                <SendMessage
-                    visible={this.state.sendMessageVisible}
-                    onCancel={this.handleSendMessageCancel}
-                    onCreate={this.handleSendMessage}
                 />
             </div>
       );
