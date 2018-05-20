@@ -8,6 +8,7 @@ import TeacherManagement from '../../component/Manager/TeacherManagement';
 import ExaminationManagement from '../../component/Manager/ExaminationManagement';
 import PreExamManagement from '../../component/Teacher/PreExamManagement';
 import ExamManagement from '../../component/Teacher/ExamManagement';
+import PostExamManagement from '../../component/Teacher/PostExamManagement';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -56,9 +57,9 @@ class Home extends Component {
         mode="horizontal"
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1"><NavLink to='/home/em'>考试管理</NavLink></Menu.Item>
-        <Menu.Item key="2"><NavLink to='/home/tm'>教师管理</NavLink></Menu.Item>
-        <Menu.Item key="3"><NavLink to='/home/cm'>配置管理</NavLink></Menu.Item>
+        <Menu.Item key="1"><NavLink to='/home/aem'>考试管理</NavLink></Menu.Item>
+        <Menu.Item key="2"><NavLink to='/home/atm'>教师管理</NavLink></Menu.Item>
+        <Menu.Item key="3"><NavLink to='/home/acm'>配置管理</NavLink></Menu.Item>
       </Menu>
     );
   }
@@ -69,9 +70,9 @@ class Home extends Component {
         mode="horizontal"
         style={{ lineHeight: '64px',float: 'left'}}
       >
-        <Menu.Item key="1"><NavLink to='/home/tsm'>考前管理</NavLink></Menu.Item>
+        <Menu.Item key="1"><NavLink to='/home/tprem'>考前管理</NavLink></Menu.Item>
         <Menu.Item key="2"><NavLink to='/home/tem'>考中管理</NavLink></Menu.Item>
-        <Menu.Item key="3">考后管理</Menu.Item>
+        <Menu.Item key="3"><NavLink to='/home/tpostm'>考后管理</NavLink></Menu.Item>
       </Menu>
     );
   }
@@ -190,8 +191,9 @@ class Home extends Component {
                 <Route exact  path='/home/atm' component={TeacherManagement} />
                 <Route path='/home/acm' component={ConfigManagement} />
                 <Route path='/home/aem' component={ExaminationManagement} />
-                <Route path='/home/tsm' component={ConfigManagement} />
+                <Route path='/home/tprem' component={PreExamManagement} />
                 <Route path='/home/tem' component={ExamManagement} />
+                <Route path='/home/tpostm' component={PostExamManagement} />
                 <Route component={ConfigManagement} />
             </Switch>
             </Content>
